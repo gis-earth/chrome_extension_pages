@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
-    <title>Speech To Text - Installation Guide</title>
+    <title>Geodata Viewer - Installation Guide</title>
     <!-- <script
       defer
       src="https://umami.scale.earth/script.js"
@@ -12,10 +12,58 @@
     ></script> -->
   </head>
   <body>
-    <canvas id="confettiCanvas"></canvas>
     <div class="container">
-      <h1>Speech To Text Installed</h1>
+      <header class="header">
+        <div class="header_logo__block">
+          <img class="header_logo" src="./img/logo.png" alt="extension_logo" />
+          <h1 class="title">Thank you for choosing GeoData Viewer</h1>
+        </div>
+        <div class="header_links">
+          <a
+            href="https://github.com/gis-earth/scale_chrome_extension"
+            target="_blank"
+          >
+            <img class="github_img" src="./img/github.png" alt="Description" width="200" />
+          </a>
+        </div>
+      </header>
+      <div class="steps">
+        <!-- Левая часть — картинка -->
+        <div class="image-section">
+          <img
+            src="./img/test_img.gif"
+            alt="Instruction Image"
+            class="instruction-image"
+          />
+        </div>
 
+        <!-- Правая часть — сетка из 4 шагов -->
+        <div class="steps-section">
+          <div class="step">
+            <h3>Step 1</h3>
+            <p>
+              Click the puzzle piece in the top right of your browser. Then,
+              click the little pin next to the extension.
+            </p>
+          </div>
+          <div class="step">
+            <h3>Step 2</h3>
+            <p>Click the extension icon to open the data upload page.</p>
+          </div>
+          <div class="step">
+            <h3>Step 3</h3>
+            <p>Browse or drag and drop your GeoJSON, KML, or GPX file.</p>
+          </div>
+          <div class="step">
+            <h3>Step 4</h3>
+            <p>
+              Explore your data on the interactive map. Click features to see
+              details and zoom.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 
       <div class="step">
         <p>
           Click the puzzle piece (1) in the top right of your browser. Then,
@@ -23,133 +71,9 @@
         </p>
         <div class="image-wrapper">
           <div class="loader"></div>
-          <img
-            src="https://eryabyshev-tech.github.io/speech-to-text.github.io/img/1.png"
-            alt="Step 1: Pin the extension"
-            onload="this.parentNode.querySelector('.loader').style.display='none'"
-          />
+          <img src="./img/test_img.gif" alt="Step 1: Pin the extension" />
         </div>
-      </div>
-
-      <div class="step">
-        <p>Open the extension (3) on any page to start using Speech To Text:</p>
-        <div class="image-wrapper">
-          <div class="loader"></div>
-          <img
-            src="https://eryabyshev-tech.github.io/speech-to-text.github.io/img/2.png"
-            alt="Step 2: Open the extension"
-            onload="this.parentNode.querySelector('.loader').style.display='none'"
-          />
-        </div>
-      </div>
+      </div> -->
     </div>
-
-    <script>
-      // Confetti Popper Effect
-      const canvas = document.getElementById("confettiCanvas");
-      const ctx = canvas.getContext("2d");
-
-      // Set canvas size to window size
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      // Confetti particle class
-      class Confetti {
-        constructor() {
-          // Start from the center of the screen
-          this.x = canvas.width / 2;
-          this.y = canvas.height / 2;
-          // Random angle for the burst direction
-          this.angle = Math.random() * Math.PI * 2;
-          // Random speed for the burst
-          this.speed = Math.random() * 1 + 3;
-          // Random size for the confetti piece
-          this.size = Math.random() * 5 + 3;
-          // Random color
-          this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          // Vertical velocity for falling
-          this.vy = Math.random() * 2 + 1;
-          // Horizontal velocity based on angle
-          this.vx = Math.cos(this.angle) * this.speed;
-          // Rotation angle for spinning effect
-          this.rotation = Math.random() * Math.PI * 2;
-          // Rotation speed
-          this.rotationSpeed = (Math.random() - 0.5) * 0.1;
-          // Life of the confetti piece
-          this.life = 0;
-          this.maxLife = 50; // Reduced for performance
-        }
-
-        update() {
-          // Update position
-          this.x += this.vx;
-          this.y += this.vy;
-          // Add gravity to make it fall
-          this.vy -= 0.1;
-          // Slow down horizontal movement
-          this.vx *= 0.98;
-          // Update rotation
-          this.rotation += this.rotationSpeed;
-          // Increment life
-          this.life++;
-        }
-
-        draw() {
-          ctx.save();
-          ctx.translate(this.x, this.y);
-          ctx.rotate(this.rotation);
-          ctx.fillStyle = this.color;
-          ctx.globalAlpha = 1 - this.life / this.maxLife;
-          ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-          ctx.restore();
-        }
-      }
-
-      // Confetti array
-      const confettiPieces = [];
-      let animationRunning = true;
-
-      // Create initial burst of confetti
-      function createConfettiBurst() {
-        // Create 50 confetti pieces for the burst
-        for (let i = 0; i < 50; i++) {
-          confettiPieces.push(new Confetti());
-        }
-      }
-
-      // Animation loop
-      function animate() {
-        if (!animationRunning) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          return;
-        }
-
-        // Clear canvas with a slight fade
-        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Update and draw confetti pieces
-        confettiPieces.forEach((confetti, index) => {
-          confetti.update();
-          confetti.draw();
-          // Remove confetti that has exceeded its life
-          if (confetti.life > confetti.maxLife) {
-            confettiPieces.splice(index, 1);
-          }
-        });
-
-        requestAnimationFrame(animate);
-      }
-
-      // Start the animation
-      createConfettiBurst();
-      animate();
-
-      // Stop the animation after 0.5 seconds
-      setTimeout(() => {
-        animationRunning = false;
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas after stopping
-      }, 750); // 500 milliseconds = 0.5 seconds
-    </script>
   </body>
 </html>
